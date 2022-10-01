@@ -8,7 +8,7 @@ import Icon from './icon';
 
 const Auth = () => {
   const classes = useStyles();
-  const {showPassword, setShowPassword} = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
 
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
