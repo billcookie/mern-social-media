@@ -7,6 +7,7 @@ import Auth from './components/Auth/Auth';
 
 const App = () => {
   return (
+
     <BrowserRouter>
     <Container maxWidth="lg">
       <Navbar />
@@ -16,6 +17,7 @@ const App = () => {
       </Routes>
     </Container>
     </BrowserRouter>
+
   );
 };
 
