@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import { gapi } from "gapi-script";
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
-import { GoogleLogin } from "react-google-login"
+import { GoogleLogin, GoogleLogout } from "react-google-login"
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useDispatch } from 'react-redux';
 import useStyles from './styles';
@@ -25,25 +26,48 @@ const Auth = () => {
 
   }
 
-const switchMode = () => {
-  setIsSignup((prevIsSignup) => !prevIsSignup);
-  handleShowPassword(false);
-}
-
-const googleSuccess = async (res) => {
-  const result = res?.profile.Obj;
-  const token = res?.tokenId
-  try {
-    dispatch({type: 'AUTH', data: {result, token }});
-    navigate('/');
-  } catch (error) {
-    console.log(error);
+  const switchMode = () => {
+    setIsSignup((prevIsSignup) => !prevIsSignup);
+    handleShowPassword(false);
   }
-}
+
+  // GOOGLE AUTH LOGIN NEW SYSTEM
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: '606386714869-rtbqmhcq4had0hkh0ih7erfo87kiug9j.apps.googleusercontent.com',
+        scope: 'email',
+      });
+    }
+
+    gapi.load('client:auth2', start);
+  }, []);
+
+   const googleSuccess = async (res) => {
+    console.log(res);
+};
+
 const googleFailure = (error) => {
   console.log(error);
-  console.log("Google Sign In was unsuccessful. Try again.")
-}
+  console.log("Could not sign into Google. Please Check errors.");
+};
+
+// OLD CODE BELOW
+
+// const googleSuccess = async (res) => {
+//   const result = res?.profile.Obj;
+//   const token = res?.tokenId
+//   try {
+//     dispatch({type: 'AUTH', data: {result, token }});
+//     navigate('/');
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+// const googleFailure = (error) => {
+//   console.log(error);
+//   console.log("Google Sign In was unsuccessful. Try again.")
+// }
 
 // clear cache if error continues.
   return (
