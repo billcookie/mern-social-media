@@ -43,8 +43,16 @@ const Auth = () => {
     gapi.load('client:auth2', start);
   }, []);
 
-   const googleSuccess = async (res) => {
-    console.log(res);
+
+const googleSuccess = async (res) => {
+  const result = res?.profileObj;
+  const token = res?.tokenId
+  try {
+    dispatch({type: 'AUTH', data: {result, token }});
+    navigate('/');
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const googleFailure = (error) => {
