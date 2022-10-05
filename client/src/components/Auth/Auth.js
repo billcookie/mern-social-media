@@ -42,7 +42,7 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false);
+    setShowPassword(false);
   }
 
   // GOOGLE AUTH LOGIN NEW SYSTEM
