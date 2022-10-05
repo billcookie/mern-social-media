@@ -8,6 +8,9 @@ import useStyles from './styles';
 import Input from './Input';
 import Icon from './icon';
 import { useNavigate } from 'react-router-dom';
+import { signin, signup } from "../../actions/auth";
+
+const initialState = { firstName: "", lastName: "", email: "", password: "", confirmPassword: "" }
 
 const Auth = () => {
   const classes = useStyles();
@@ -15,16 +18,26 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [formData, setFormData] = useState();
+
 
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);
 
+    if(isSignup) {
+      dispatch(signup(formData, navigate))
+    } else {
+      dispatch(signin(formData, navigate))
+
+    }
 
   }
 
-  const handleChange = () => {
-
+  const handleChange = (event) => {
+    setFormData({...formData, [event.target.name]: event.target.value})
   }
 
   const switchMode = () => {
