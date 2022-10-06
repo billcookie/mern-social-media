@@ -3,7 +3,7 @@
 A social media app built with Mongo DB, Express, React and Node.js with Google Authentication. It allows users to post moments and share those with others. 
 
 <br>
-App home: TBA
+App home: https://post-it-social.vercel.app/
    
 # Getting Started with Create React App
 
